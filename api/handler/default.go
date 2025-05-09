@@ -78,6 +78,12 @@ func BuildSub(clashType model.ClashType, query validator.SubValidator, template 
 			// 打印错误并跳过当前订阅
 			continue
 		}
+
+		// 打印订阅内容
+		logger.Logger.Debug("subscription content", 
+			zap.String("url", query.Subs[i]),
+			zap.String("content", string(data)),
+			zap.Int("content_length", len(data)))
 	
 		err = yaml.Unmarshal(data, &sub)
 		var newProxies []model.Proxy
@@ -104,6 +110,11 @@ func BuildSub(clashType model.ClashType, query validator.SubValidator, template 
 			}
 		} else {
 			newProxies = sub.Proxies
+			// 打印解析后的订阅内容
+			logger.Logger.Debug("parsed subscription content",
+				zap.String("url", query.Subs[i]),
+				zap.Int("proxy_count", len(newProxies)),
+				zap.Any("proxies", newProxies))
 		}
 	
 		if subName != "" {

@@ -4,10 +4,6 @@ on:
   push:
     tags:
       - "v*"
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
 
 jobs:
   prepare-and-build:
@@ -49,7 +45,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             "version=${{ github.ref_name }}"

@@ -1,13 +1,9 @@
 name: release
 
 on:
-  # push:
-    # tags:
-      # - "v*"
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: write

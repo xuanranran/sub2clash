@@ -1,9 +1,13 @@
 name: docker
 
 on:
-  push:
-    tags:
-      - "v*"
+  # push:
+    # tags:
+      # - "v*"
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
   prepare-and-build:
@@ -17,8 +21,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            nite07/sub2clash
-            ghcr.io/nitezs/sub2clash
+            lovinyarn/sub2clash
+            ghcr.io/xuanranran/sub2clash
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}

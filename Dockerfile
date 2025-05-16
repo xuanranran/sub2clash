@@ -1,5 +1,5 @@
 FROM golang:1.21-alpine as builder
-LABEL authors="nite07"
+LABEL authors="lovinyarn"
 WORKDIR /app
 COPY . .
 RUN go mod download
